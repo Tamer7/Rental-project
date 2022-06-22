@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Reservations</h2>
+<table border="1" style="border-collapse: collapse; margin-top: 15px;">
+  <thead>
+    <tr>
+      <th>Rental_name</th>
+      <th>ID</th>
+      <th>Checkin</th>
+      <th>Checkout</th>
+      <th>Previous Reservation ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for reservation in reservations %}
+      <tr>
+        <td>{{ reservation.rental.name }}</td>
+        <td>{{ reservation.id }}</td>
+        <td>{{ reservation.checkin|date:'Y-m-d' }}</td>
+        <td>{{ reservation.checkout|date:'Y-m-d' }}</td>
+        <td>{{ reservation.get_previous_reservation }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Add new reservation</h2>
+
+<form action="." method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form>
+{% endblock content %}
