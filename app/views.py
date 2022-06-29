@@ -10,5 +10,6 @@ class HomeView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reservations'] = Reservation.objects.all()
+        context['reservations'] = Reservation.objects.all(
+        ).select_related('rental')
         return context
